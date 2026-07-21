@@ -15,7 +15,6 @@ An OpenCode skill for multi-step, multi-file, risky, or ambiguous work.
 
 - [Purpose](#purpose)
 - [Problem solved](#problem-solved)
-- [Features](#features)
 - [When to use](#when-to-use)
 - [Install](#install)
 - [Workflow](#workflow)
@@ -41,19 +40,6 @@ validation commands in a durable Markdown artifact.
 Complex changes often start editing before scope, dependencies, ownership, and
 verification are explicit. This skill creates a reviewable handoff that keeps
 implementation bounded and makes acceptance evidence visible.
-
-## Features
-
-| Feature | Description |
-| --- | --- |
-| Evidence-based plans | Grounded in project instructions and source. |
-| Consistent structure | Goal, scope, evidence, acceptance, risk, and task sections. |
-| Behavioral Requirements | Conditional EARS-style requirements and traceability. |
-| Material approval gate | Required for API, data, security, integration, cost, and production-cutover impact. |
-| OMO-Slim ownership | Explicit ownership and bounded specialist delegation. |
-| Dependency-ordered tasks | Exact paths and focused validation per task. |
-| AgentMemory boundary | Source-linked, durable decisions only. |
-| Language-neutral | Works with projects in any programming language. |
 
 ## When to use
 
