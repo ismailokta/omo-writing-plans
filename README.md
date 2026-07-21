@@ -44,15 +44,16 @@ implementation bounded and makes acceptance evidence visible.
 
 ## Features
 
-- Evidence-based plans grounded in project instructions and source.
-- Consistent goal, scope, evidence, acceptance, risk, and task structure.
-- Conditional EARS-style Behavioral Requirements and Traceability sections.
-- Material approval gate for API, data, security, integration, cost, and
-  production-cutover impact.
-- Explicit OMO-Slim ownership and bounded specialist delegation.
-- Dependency-ordered tasks with exact paths and focused validation.
-- Source-linked AgentMemory boundary.
-- Works with projects written in any programming language.
+| Feature | Description |
+| --- | --- |
+| Evidence-based plans | Grounded in project instructions and source. |
+| Consistent structure | Goal, scope, evidence, acceptance, risk, and task sections. |
+| Behavioral Requirements | Conditional EARS-style requirements and traceability. |
+| Material approval gate | Required for API, data, security, integration, cost, and production-cutover impact. |
+| OMO-Slim ownership | Explicit ownership and bounded specialist delegation. |
+| Dependency-ordered tasks | Exact paths and focused validation per task. |
+| AgentMemory boundary | Source-linked, durable decisions only. |
+| Language-neutral | Works with projects in any programming language. |
 
 ## When to use
 
