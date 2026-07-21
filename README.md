@@ -13,21 +13,7 @@ An OpenCode skill for multi-step, multi-file, risky, or ambiguous work.
 
 ## Contents
 
-- [Purpose](#purpose)
-- [Problem solved](#problem-solved)
-- [When to use](#when-to-use)
-- [Install](#install)
-- [Workflow](#workflow)
-- [Usage](#usage)
-- [Plan artifacts](#plan-artifacts)
-- [Works With](#works-with)
-- [Architecture](#architecture)
-- [Design Influences](#design-influences)
-- [Project layout](#project-layout)
-- [Update](#update)
-- [Uninstall](#uninstall)
-- [Contributing](#contributing)
-- [License](#license)
+[Purpose](#purpose) · [Problem solved](#problem-solved) · [When to use](#when-to-use) · [Install](#install) · [Workflow](#workflow) · [Usage](#usage) · [Plan artifacts](#plan-artifacts) · [Works With](#works-with) · [Architecture](#architecture) · [Design Influences](#design-influences) · [Project layout](#project-layout) · [Update](#update) · [Uninstall](#uninstall) · [Contributing](#contributing) · [License](#license)
 
 ## Purpose
 
