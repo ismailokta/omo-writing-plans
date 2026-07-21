@@ -6,7 +6,29 @@
 
 An OpenCode skill for multi-step, multi-file, risky, or ambiguous work.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![OpenCode Skill](https://img.shields.io/badge/OpenCode-Skill-5865F2.svg)](https://opencode.ai)
+
 </div>
+
+## Contents
+
+- [Purpose](#purpose)
+- [Problem solved](#problem-solved)
+- [Features](#features)
+- [When to use](#when-to-use)
+- [Install](#install)
+- [Workflow](#workflow)
+- [Usage](#usage)
+- [Plan artifacts](#plan-artifacts)
+- [Works With](#works-with)
+- [Architecture](#architecture)
+- [Design Influences](#design-influences)
+- [Project layout](#project-layout)
+- [Update](#update)
+- [Uninstall](#uninstall)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Purpose
 
@@ -121,9 +143,11 @@ Optional, but recommended for multi-agent execution.
   implementation, review, and verification.
 - **omo-writing-plans owns:** plan artifacts only.
 
-The skill creates an approved Markdown plan; oh-my-opencode-slim executes it.
-Use explicit file ownership and bounded specialist delegation to avoid
-overlapping writers.
+The skill creates an approved Markdown plan; oh-my-opencode-slim executes
+approved tasks in dependency order. Use `fixer` for mechanical or headless
+changes, `designer` for user-visible design, and `oracle` only for high-risk
+decisions or review. Preserve explicit file ownership and avoid overlapping
+writers.
 
 ### [AgentMemory](https://github.com/rohitg00/agentmemory)
 
@@ -133,20 +157,6 @@ project-specific location.
 
 Never store secrets, production dumps, PII, plan transcripts, or temporary
 hypotheses in AgentMemory.
-
-## OMO-Slim roles
-
-OMO-Slim owns discovery, delegation, implementation, review, and verification.
-Use `fixer` for mechanical or headless changes, `designer` for user-visible
-design, and `oracle` only for high-risk decisions or review. Preserve explicit
-file ownership and avoid overlapping writers. The skill owns plan artifacts;
-OMO-Slim executes approved plans.
-
-## AgentMemory boundary
-
-Record only durable, source-linked decisions in AgentMemory. Do not store
-secrets, production dumps, PII, plan transcripts, temporary hypotheses, or
-other ephemeral reasoning.
 
 ## Architecture
 
