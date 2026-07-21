@@ -1,0 +1,185 @@
+# omo-writing-plans
+
+`omo-writing-plans` is an OpenCode skill for turning clear requirements into
+one concise, evidence-based implementation plan before code changes begin.
+It is designed for OMO-Slim execution of multi-step, multi-file, risky, or
+ambiguous work.
+
+## Purpose
+
+The skill separates planning from execution. It records goal, scope,
+repository evidence, acceptance criteria, risks, decisions, bounded tasks, and
+validation commands in a durable Markdown artifact.
+
+## Problem solved
+
+Complex changes often start editing before scope, dependencies, ownership, and
+verification are explicit. This skill creates a reviewable handoff that keeps
+implementation bounded and makes acceptance evidence visible.
+
+## Features
+
+- Evidence-based plans grounded in project instructions and source.
+- Consistent goal, scope, evidence, acceptance, risk, and task structure.
+- Conditional EARS-style Behavioral Requirements and Traceability sections.
+- Material approval gate for API, data, security, integration, cost, and
+  production-cutover impact.
+- Explicit OMO-Slim ownership and bounded specialist delegation.
+- Dependency-ordered tasks with exact paths and focused validation.
+- Source-linked AgentMemory boundary.
+- Works with projects written in any programming language.
+
+## When to use
+
+Use for API changes, migrations, security work, architectural changes,
+business-flow changes, parallel-agent work, or any multi-file, risky, or
+ambiguous implementation.
+
+Do not use for one clear, low-risk file change with clear acceptance criteria;
+use a task card instead. Do not use this skill to create a separate SpecFlow
+workflow, task engine, status lifecycle, or execution phase.
+
+## Install
+
+Install globally for OpenCode:
+
+```sh
+mkdir -p ~/.config/opencode/skills/omo-writing-plans
+cp SKILL.md ~/.config/opencode/skills/omo-writing-plans/SKILL.md
+```
+
+From a checked-out repository, run those commands from its root. OpenCode
+loads the skill from `~/.config/opencode/skills/omo-writing-plans/SKILL.md`.
+
+## Workflow
+
+1. Read relevant project instructions and source.
+2. Confirm goal, scope, non-goals, and observable acceptance criteria.
+3. Ask targeted questions when an unresolved decision materially changes
+   behavior, API, data, security, or cost.
+4. Write one plan at the approved location.
+5. Add Behavioral Requirements and Traceability only for auditable, higher-risk
+   changes.
+6. Request approval before execution only for material impact.
+7. Hand approved work to OMO-Slim for dependency-ordered execution, review, and
+   verification.
+
+## Usage
+
+Invoke the `omo-writing-plans` skill when requirements are clear and planning
+must precede editing. The resulting plan must begin with the required format:
+
+```markdown
+# <Feature> Implementation Plan
+
+## Goal
+...
+```
+
+Each task states ownership, exact files, dependencies, implementation,
+validation, and its observable done condition. Do not invent missing
+requirements or speculative APIs.
+
+## Plan artifacts
+
+Plans live at:
+
+```text
+docs/plans/YYYY-MM-DD-<feature-name>.md
+```
+
+Follow project convention or an explicit user path when one exists. Create the
+parent directory only when saving an approved plan.
+
+### Optional auditable sections
+
+Behavioral Requirements use EARS-style wording only when needed:
+
+```text
+REQ-1: WHEN <condition>, system SHALL <observable behavior>.
+```
+
+When Behavioral Requirements exist, Traceability is required and every
+`REQ-*` must map to a task and focused validation. The material approval gate
+is required only when the plan affects public API, data model or migration,
+authentication or authorization, security posture, external integration,
+material cost, or production cutover.
+
+## OMO-Slim roles
+
+OMO-Slim owns discovery, delegation, implementation, review, and verification.
+Use `fixer` for mechanical or headless changes, `designer` for user-visible
+design, and `oracle` only for high-risk decisions or review. Preserve explicit
+file ownership and avoid overlapping writers. The skill owns plan artifacts;
+OMO-Slim executes approved plans.
+
+## AgentMemory boundary
+
+Record only durable, source-linked decisions in AgentMemory. Do not store plan
+transcripts, temporary hypotheses, or other ephemeral reasoning.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    U[User] --> O[OMO-Slim Orchestrator]
+    O -->|conditional| P[omo-writing-plans]
+    P --> A[docs/plans artifact]
+    A --> S[Bounded specialists]
+    S --> V[Verification]
+    O --> V
+    D[Durable source-linked decisions] --> M[AgentMemory]
+    O -.->|only durable source-linked decisions| M
+```
+
+## Design Influences
+
+This project selectively adopts planning patterns from a local SpecFlow
+reference, especially explicit behavior-oriented acceptance thinking.
+SpecFlow's approach is informed by broader ideas from
+[Kiro specs](https://kiro.dev/docs/specs/) and
+[OpenSpec](https://github.com/Fission-AI/OpenSpec). These are design
+influences only; this project is not officially affiliated with or endorsed by
+those projects.
+
+It deliberately does **not** adopt their full orchestration, lifecycle, or
+task-engine systems. This skill provides one Markdown plan and hands approved
+execution to OMO-Slim.
+
+## Project layout
+
+```text
+.
+├── SKILL.md
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+Consumer repositories add approved artifacts under `docs/plans/`.
+
+## Update
+
+Replace installed skill file with the version from this repository:
+
+```sh
+cp SKILL.md ~/.config/opencode/skills/omo-writing-plans/SKILL.md
+```
+
+## Uninstall
+
+```sh
+rm -rf ~/.config/opencode/skills/omo-writing-plans
+```
+
+## Contributing
+
+Keep changes focused on evidence-based planning. Preserve required plan
+structure, conditional requirements and traceability rules, approval criteria,
+OMO-Slim boundaries, exact-path guidance, and language-neutral behavior. Update
+README examples when skill behavior changes. Validate Markdown, frontmatter,
+and links before submitting a change.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
