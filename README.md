@@ -1,9 +1,12 @@
+<div align="center">
+
 # omo-writing-plans
 
-`omo-writing-plans` is an OpenCode skill for turning clear requirements into
-one concise, evidence-based implementation plan before code changes begin.
-It is designed for OMO-Slim execution of multi-step, multi-file, risky, or
-ambiguous work.
+**Evidence-based implementation plans before code changes begin.**
+
+An OpenCode skill for multi-step, multi-file, risky, or ambiguous work.
+
+</div>
 
 ## Purpose
 
@@ -105,6 +108,32 @@ is required only when the plan affects public API, data model or migration,
 authentication or authorization, security posture, external integration,
 material cost, or production cutover.
 
+## Works With
+
+These are independent integrations. `omo-writing-plans` does not configure or
+require either project.
+
+### [oh-my-opencode-slim](https://github.com/alvinunreal/oh-my-opencode-slim)
+
+Optional, but recommended for multi-agent execution.
+
+- **oh-my-opencode-slim owns:** discovery, orchestration, delegation,
+  implementation, review, and verification.
+- **omo-writing-plans owns:** plan artifacts only.
+
+The skill creates an approved Markdown plan; oh-my-opencode-slim executes it.
+Use explicit file ownership and bounded specialist delegation to avoid
+overlapping writers.
+
+### [AgentMemory](https://github.com/rohitg00/agentmemory)
+
+Optional storage for durable, source-linked decisions only. Plans and active
+requirements remain repository files under `docs/plans/` or their approved
+project-specific location.
+
+Never store secrets, production dumps, PII, plan transcripts, or temporary
+hypotheses in AgentMemory.
+
 ## OMO-Slim roles
 
 OMO-Slim owns discovery, delegation, implementation, review, and verification.
@@ -115,21 +144,21 @@ OMO-Slim executes approved plans.
 
 ## AgentMemory boundary
 
-Record only durable, source-linked decisions in AgentMemory. Do not store plan
-transcripts, temporary hypotheses, or other ephemeral reasoning.
+Record only durable, source-linked decisions in AgentMemory. Do not store
+secrets, production dumps, PII, plan transcripts, temporary hypotheses, or
+other ephemeral reasoning.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    U[User] --> O[OMO-Slim Orchestrator]
-    O -->|conditional| P[omo-writing-plans]
+    U[User] --> O[oh-my-opencode-slim]
+    O -->|optional; recommended for multi-agent execution| P[omo-writing-plans]
     P --> A[docs/plans artifact]
     A --> S[Bounded specialists]
     S --> V[Verification]
-    O --> V
-    D[Durable source-linked decisions] --> M[AgentMemory]
-    O -.->|only durable source-linked decisions| M
+    O -->|records durable source-linked decisions| M[AgentMemory]
+    M -->|recalls decisions| O
 ```
 
 ## Design Influences
