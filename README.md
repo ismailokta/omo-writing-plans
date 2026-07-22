@@ -60,7 +60,8 @@ loads the skill from `~/.config/opencode/skills/omo-writing-plans/SKILL.md`.
    changes.
 6. Request approval before execution only for material impact.
 7. Hand approved work to OMO-Slim for dependency-ordered execution, review, and
-   verification.
+   verification. Plan-only requests stop after plan output; implementation
+   requests proceed unless material risk requires approval.
 
 ## Usage
 
@@ -124,12 +125,16 @@ writers.
 
 ### [AgentMemory](https://github.com/rohitg00/agentmemory)
 
-Optional storage for durable, source-linked decisions only. Plans and active
-requirements remain repository files under `docs/plans/` or their approved
-project-specific location.
+AgentMemory is an optional runtime companion of a consumer OMO deployment, not
+a repository dependency or plan store. It provides advisory context only and
+may be unavailable without blocking planning or execution. Plans and
+repository evidence outrank memory; scope, task order, acceptance, status, and
+completion evidence remain in the plan and repository.
 
-Never store secrets, production dumps, PII, plan transcripts, or temporary
-hypotheses in AgentMemory.
+Memory data is runtime-local or external and must not be committed. Store only
+durable, reviewed, source-linked decisions or lessons with project scope. Never
+store secrets, credentials, raw transcripts, full plan copies, or temporary
+hypotheses.
 
 ## Architecture
 
@@ -140,8 +145,8 @@ flowchart LR
     P --> A[docs/plans artifact]
     A --> S[Bounded specialists]
     S --> V[Verification]
-    O -->|records durable source-linked decisions| M[AgentMemory]
-    M -->|recalls decisions| O
+    O -.->|optional runtime companion; advisory context| M[AgentMemory]
+    M -.->|may be unavailable; never plan authority| O
 ```
 
 ## Design Influences

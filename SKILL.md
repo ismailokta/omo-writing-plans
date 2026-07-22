@@ -12,7 +12,11 @@ review, and verification. Do not invoke or require Superpowers skills.
 Use the requirements and traceability sections only for API, data, security,
 migration, business-flow, or otherwise high-risk changes. Do not create them
 for a small local fix with clear acceptance criteria. Do not create a separate
-SpecFlow workflow, task engine, status lifecycle, or execution phase.
+SpecFlow workflow, task engine, status lifecycle, or execution phase. Selectively
+adopt SpecFlow concepts only for durable plan content: EARS requirements,
+traceability, evidence, and approval for material decisions. Do not create
+`.specflow` lifecycle directories or require separate requirements/design/tasks
+phases.
 
 ## Preconditions
 
@@ -69,6 +73,18 @@ data model or migration, authentication or authorization, security posture,
 external integration, material cost, or production cutover. Do not add an
 approval gate for every task.
 
+## Durable Execution State
+
+Plan file is single source of truth for scope, tasks, dependencies,
+acceptance, and progress. OMO-Slim delegates runtime work, but agents must
+not create a competing plan or reorder approved tasks without a recorded
+decision. Each task records `State` (`pending` | `in_progress` | `blocked` |
+`done`), `Result/evidence` (commit-independent summary plus validation
+result), and `Blocker/deviation` when applicable. Update state after each
+meaningful delegation boundary. After restart, resume from plan file, not
+chat or in-memory state. This is durable plan progress, not a second task
+engine or phase lifecycle.
+
 Then add ordered tasks. Each task must be independently reviewable and state:
 
 ```markdown
@@ -77,8 +93,11 @@ Then add ordered tasks. Each task must be independently reviewable and state:
 **Ownership:** <OMO direct | fixer | designer | oracle review>
 **Files:** Create/modify exact paths; cite symbols or line ranges when known.
 **Dependencies:** <prior task or none>
+**State:** <pending | in_progress | blocked | done>
 **Implementation:** Concrete behavior, interfaces, data changes, and edge cases.
 **Validation:** Exact focused command or manual check with expected result.
+**Result/evidence:** <commit-independent summary and validation result>
+**Blocker/deviation:** <blocker, approved deviation, or none>
 **Done when:** Observable completion condition.
 ```
 
@@ -89,7 +108,12 @@ commands unless user requests them.
 
 ## OMO Handoff
 
-After plan approval, hand execution to OMO-Slim:
+For plan-only requests, save or present plan, then stop. For implementation
+requests without a risk gate, OMO-Slim may proceed. A material risk gate
+requires approval. Scope-invalidating evidence pauses affected lane and
+records replan or decision before resuming.
+
+After approval when required, hand execution to OMO-Slim:
 
 1. Execute tasks in dependency order.
 2. Delegate bounded implementation only when it reduces total work. Preserve
@@ -98,8 +122,16 @@ After plan approval, hand execution to OMO-Slim:
    design, and `oracle` only for high-risk decisions or review.
 4. Verify each completed task using its validation evidence, then validate all
    acceptance criteria before reporting completion.
-5. Record only durable, source-linked decisions in AgentMemory. Do not store
-   plan transcripts or temporary hypotheses.
+5. Record only durable, source-linked decisions in AgentMemory when available.
+   Do not store plan transcripts or temporary hypotheses.
+
+## AgentMemory Boundary
+
+AgentMemory is optional advisory context only. It never owns scope, task order,
+acceptance, status, or completion evidence; plan and repository evidence remain
+authoritative. It must never store secrets, credentials, raw transcripts, full
+plan copies, or temporary hypotheses. Save only durable, reviewed,
+source-linked decisions or lessons with project scope.
 
 ## Plan Review
 
@@ -111,4 +143,7 @@ Before saving, check:
 - Tasks use repository evidence, not assumed APIs or paths.
 - Scope and non-goals prevent feature creep.
 - Task ownership and dependencies do not conflict.
+- Durable progress, blockers, deviations, and validation evidence are recorded.
+- Exactly one plan owns task order and acceptance.
+- Restart recovery works from plan file alone.
 - Caveman-style brevity did not remove constraints, commands, or risks.
